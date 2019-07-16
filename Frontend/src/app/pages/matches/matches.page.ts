@@ -15,6 +15,7 @@ export class MatchesPage implements OnInit {
   constructor(private leagueService: LeagueService) { 
     this.data = this.leagueService.getData();
     this.league = this.leagueService.getLeague();
+    console.log(this.data);
   }
 
   ngOnInit() {

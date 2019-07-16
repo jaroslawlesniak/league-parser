@@ -11,5 +11,30 @@
 </ion-header>
 
 <ion-content>
-    Mecze
+    <ion-card *ngFor="let matchDay of data.matches">
+        <ion-card-header>
+            <ion-card-title>{{ matchDay.date }}</ion-card-title>
+            <ion-card-subtitle *ngIf="matchDay.pause !== null">{{ matchDay.pause }}</ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content>
+            <ion-list>
+                <ion-item *ngFor="let match of matchDay.matches">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="5">{{ match.home }}</ion-col>
+                            <ion-col size="2">{{ match.result }}</ion-col>
+                            <ion-col size="5">{{ match.guest }}</ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="match.walkover == true">
+                            <ion-col size="12">Walkower</ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="match.info">
+                            <ion-col>{{ match.info }}</ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

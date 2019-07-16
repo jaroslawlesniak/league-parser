@@ -47,7 +47,7 @@
         $matchDayInfo["matches"] = [];
 
         $matchDayAllMatches = $rawMatchesData->item($i + 1)->getElementsByTagName("tr");
-        $previousMatchIndex = -1;
+        $previousMatchIndex = 0;
 
         for($j = 0; $j < $matchDayAllMatches->length; $j++) {
             $singleMatchInfo = [];
@@ -74,15 +74,15 @@
             }
 
             if($line->length > 1) {
-                $previousMatchIndex++;
                 $singleMatchInfo["home"] = trim($line->item(0)->nodeValue);
                 $singleMatchInfo["guest"] = trim($line->item(2)->nodeValue);
                 $singleMatchInfo["result"] = trim($line->item(1)->nodeValue);
                 $matchDayInfo["matches"][$previousMatchIndex] = $singleMatchInfo; 
+                $previousMatchIndex++;
             }
         }
 
-        $matches[(ceil($i/2) + 1)] = $matchDayInfo;
+        $matches[ceil($i/2)] = $matchDayInfo;
     }
 
     echo json_encode(["table" => $leagueTable, "matches" => $matches], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
