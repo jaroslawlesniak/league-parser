@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-
 import { League } from '../../modules/league';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { LeagueService } from '../services/league.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +17,7 @@ export class HomePage {
   leagues: League[];
   data2: League;
 
-  constructor(public localStorage: Storage, private alertCtrl: AlertController, private router: Router, private leagueService: LeagueService) {
+  constructor(public localStorage: Storage, private alertCtrl: AlertController, private router: Router, private leagueService: LeagueService, public http: HttpClient) {
     this.storage = localStorage;
     this.storage.get('leagues').then((val) => {
         if(val !== null) {
@@ -44,8 +44,12 @@ export class HomePage {
   }
 
   loadLeague(league: League) {
-    this.leagueService.setLeague(league);
-    this.router.navigate(['league']);
+    this.http.get('https://api.jaroslawlesniak.pl/league-parser/?id=' + league.path).subscribe(rawData => {
+      this.leagueService.setData(rawData);
+      this.leagueService.setLeague(league);
+      this.router.navigate(['league']);
+    });
+    
   }
 
   async addLeague() {

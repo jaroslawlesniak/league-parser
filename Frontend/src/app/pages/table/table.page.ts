@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LeagueService } from 'src/app/services/league.service';
+import { League } from 'src/modules/league';
 
 @Component({
   selector: 'app-table',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TablePage implements OnInit {
 
-  constructor() { }
+  private data;
+  private league: League = new League("", "");
+
+  constructor(private leagueService: LeagueService) { 
+    this.data = this.leagueService.getData();
+    this.league = this.leagueService.getLeague();
+  }
 
   ngOnInit() {
   }

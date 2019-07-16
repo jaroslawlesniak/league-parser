@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage'
 
 import { HomePage } from './home.page';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import { HomePage } from './home.page';
         component: HomePage
       }
     ]),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpClientModule,
+    HttpModule
   ],
   declarations: [HomePage]
 })
