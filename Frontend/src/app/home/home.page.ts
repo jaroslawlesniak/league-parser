@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { League } from '../../modules/league';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { LeagueService } from '../services/league.service';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomePage {
   leagues: League[];
   data2: League;
 
-  constructor(public localStorage: Storage, private alertCtrl: AlertController, private router: Router) {
+  constructor(public localStorage: Storage, private alertCtrl: AlertController, private router: Router, private leagueService: LeagueService) {
     this.storage = localStorage;
     this.storage.get('leagues').then((val) => {
         if(val !== null) {
@@ -43,10 +44,8 @@ export class HomePage {
   }
 
   loadLeague(league: League) {
-    this.router.navigate(['league', {
-      name: league.name,
-      path: league.path
-    }]);
+    this.leagueService.setLeague(league);
+    this.router.navigate(['league']);
   }
 
   async addLeague() {

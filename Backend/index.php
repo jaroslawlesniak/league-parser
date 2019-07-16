@@ -1,6 +1,8 @@
 <?php
 
+    
     header("Content-type: application/json; charset=utf-8");
+    header("Access-Control-Allow-Origin: *");
     libxml_use_internal_errors (true);
 
     $leaguePath = $_GET["id"];
