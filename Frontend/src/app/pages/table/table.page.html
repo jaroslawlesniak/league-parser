@@ -11,5 +11,26 @@
 </ion-header>
 
 <ion-content>
-  Tabela
+  <ion-list>
+      <ion-item>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6">Zespół</ion-col>
+                <ion-col size="2">M</ion-col>
+                <ion-col size="2">P</ion-col>
+                <ion-col size="2">B</ion-col>
+            </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item *ngFor="let team of data.table">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6"><b>{{ team.position }}.</b> {{ team.team }}</ion-col>
+                <ion-col size="2">{{ team.stats[0] }}</ion-col>
+                <ion-col size="2">{{ team.stats[1] }}</ion-col>
+                <ion-col size="2">{{ team.stats[5] }}</ion-col>
+            </ion-row>
+        </ion-grid>
+      </ion-item>
+  </ion-list>
 </ion-content>
