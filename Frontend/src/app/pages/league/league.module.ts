@@ -12,7 +12,16 @@ import { HttpModule } from '@angular/http';
 const routes: Routes = [
   {
     path: '',
-    component: LeaguePage
+    component: LeaguePage,
+    children: [
+      {path: "table", loadChildren: "../table/table.module#TablePageModule"},
+      {path: "matches", loadChildren: "../matches/matches.module#MatchesPageModule"}
+    ]
+  },
+  {
+    path:'league',
+    redirectTo:'/league/table',
+    pathMatch:'full'
   }
 ];
 

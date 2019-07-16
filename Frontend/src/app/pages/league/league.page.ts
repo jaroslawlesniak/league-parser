@@ -16,12 +16,13 @@ export class LeaguePage implements OnInit {
   constructor(private leagueService: LeagueService, private http: Http) { 
     this.league = this.leagueService.getLeague();
 
-    this.http.get('https://api.jaroslawlesniak.pl/league-parser/?id=' + this.league.path).subscribe(data => {
-      console.log(data.json());
+    this.http.get('https://api.jaroslawlesniak.pl/league-parser/?id=' + this.league.path).subscribe(rawData => {
+      let data = rawData.json();
     });
   }
 
   ngOnInit() {
+
   }
 
 }
