@@ -90,4 +90,4 @@
         $matches[ceil($i/2)] = $matchDayInfo;
     }
 
-    echo json_encode(["table" => $leagueTable, "matches" => $matches], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    echo json_encode(["table" => $leagueTable, "match_days" => $matches], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
