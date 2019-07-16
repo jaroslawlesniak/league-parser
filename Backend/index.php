@@ -20,6 +20,7 @@
         $teamData = $rawLeagueTable->item($i)->getElementsByTagName("td");
 
         $team = [];
+        $team["position"] = $i - 3;
         $team["team"] = trim($teamData->item(1)->nodeValue);
         $team["stats"] = [];
 
@@ -30,7 +31,7 @@
                 $team["stats"][] = "0";
             }
         }
-        $leagueTable[$i - 3] = $team;
+        $leagueTable[$i - 4] = $team;
     }
 
     $rawMatchesData = $finder->query('//table[@class="main"]');
@@ -67,10 +68,14 @@
 
             if($line->length === 1 && $j > 0) {
                 if(trim($line->item(0)->nodeValue) === "(wo)") {
-                    $matchDayInfo["matches"][$previousMatchIndex]["walkover"] = true;
+                    $matchDayInfo["matches"][$previousMatchIndex - 1]["walkover"] = true;
                 } else {
-                    $matchDayInfo["matches"][$previousMatchIndex]["info"] = ucfirst(trim($line->item(0)->nodeValue));
+                    $matchDayInfo["matches"][$previousMatchIndex - 1]["info"] = ucfirst(trim($line->item(0)->nodeValue));
                 }
+            }
+
+            if(array_key_exists(-1, $matchDayInfo["matches"])) {
+                unset($matchDayInfo["matches"][-1]);
             }
 
             if($line->length > 1) {
