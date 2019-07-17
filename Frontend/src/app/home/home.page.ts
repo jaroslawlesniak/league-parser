@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { LeagueService } from '../services/league.service';
 import { HttpClient } from '@angular/common/http';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ export class HomePage {
   leagues: League[];
   data2: League;
 
-  constructor(public localStorage: Storage, private alertCtrl: AlertController, private router: Router, private leagueService: LeagueService, public http: HttpClient) {
+  constructor(public localStorage: Storage, private alertCtrl: AlertController, private router: Router, private leagueService: LeagueService, public http: HttpClient, private statusBar: StatusBar) {
+    this.statusBar.backgroundColorByHexString("#ffffff");
     this.storage = localStorage;
     this.storage.get('leagues').then((val) => {
         if(val !== null) {
@@ -41,6 +43,10 @@ export class HomePage {
 
     this.leagues.splice(index, 1);
     this.storage.set("leagues", this.leagues);
+  }
+
+  modyfy(league: League, index: Number) {
+    console.log(league, index);
   }
 
   loadLeague(league: League) {
