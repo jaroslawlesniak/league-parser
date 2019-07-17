@@ -1,33 +1,33 @@
-<ion-header>
+<ion-header no-border>
     <ion-toolbar slot="primary">
         <ion-title>
-            90minut.pl
+            <ion-icon class="icon" name="bookmark"></ion-icon>Zapisane ligi
         </ion-title>
+        <ion-buttons slot="secondary">
+            <ion-button class="btn-container" (click)="addLeague()">
+                <ion-icon class="add" name="add-circle"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-list>
         <ion-item-sliding *ngFor="let league of leagues">
-            <ion-item (click)="loadLeague(league)">
+            <ion-item lines="none" (click)="loadLeague(league)">
                 <ion-label>
                     <h2>{{ league.name }}</h2>
-                    <ion-note>{{ league.path }}</ion-note>
+                    <ion-note class="note">{{ league.path }}</ion-note>
                 </ion-label>
             </ion-item>
             <ion-item-options side="end">
-                <ion-item-option color="danger" (click)="delete(league)">Usuń</ion-item-option>
+                <ion-item-option  (click)="delete(league)">
+                    <ion-icon class="modyfy" name="settings"></ion-icon>
+                </ion-item-option>
+                <ion-item-option  (click)="delete(league)">
+                    <ion-icon class="delete" name="trash"></ion-icon>
+                </ion-item-option>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button>
-            <ion-icon name="add-circle"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-list side="start">
-            <ion-card class="card" (click)="addLeague()">
-                <ion-label>Liga</ion-label>
-            </ion-card>
-        </ion-fab-list>
-    </ion-fab>
 </ion-content>

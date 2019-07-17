@@ -1,3 +1,45 @@
-.card {
-    padding: 10px 25px;
+.delete, .modyfy, .add {
+    font-size: 20px;
+    color: #fff;
+    border-radius: 100%;
+    padding: 7px;
+}
+
+.delete {
+    background-color: #f44242;
+}
+
+.modyfy, .add {
+    background-color: #eee;
+    color: #333;
+}
+
+.list-md
+{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.note {
+    color: #888;
+}
+
+h2 {
+    color: #333;
+}
+
+ion-header {
+    box-shadow: 0px 0px 2px #888;
+    font-size: 25px;
+}
+
+.btn-container {
+    height: 50px;
+}
+
+.icon {
+    margin-right: 10px;
+    position: relative;
+    top: 3px;
+    color: orangered;
 }
