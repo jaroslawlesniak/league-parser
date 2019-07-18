@@ -36,23 +36,74 @@ export class HomePage {
     });
   }
 
-  delete(league: League) {
-    let index = -1;
+  async delete(league: League) {
+    const alert = await this.alertCtrl.create({
+      header: "Potwierdzenie",
+      message: "Czy napewno chcesz usunać ligę <b>" + league.name + "</b>?",
+      buttons: [
+        {
+          text: 'Anuluj',
+          role: 'cancel'
+        }, {
+          text: 'Usuń',
+          cssClass: "alert-btn",
+          handler: () => {
+            let index = -1;
 
-    for(let i in this.leagues) {
-        let singleLeague = this.leagues[i];
-        if(singleLeague.name === league.name && singleLeague.path === league.path) {
-            index = parseInt(i);
-            break;
+            for(let i in this.leagues) {
+                let singleLeague = this.leagues[i];
+                if(singleLeague.name === league.name && singleLeague.path === league.path) {
+                    index = parseInt(i);
+                    break;
+                }
+            }
+
+            this.leagues.splice(index, 1);
+            this.storage.set("leagues", this.leagues);
+          }
         }
-    }
-
-    this.leagues.splice(index, 1);
-    this.storage.set("leagues", this.leagues);
+      ]
+    });
+    await alert.present();
   }
 
-  modyfy(league: League, index: Number) {
-    console.log(league, index);
+  modyfy(league: League, index) {
+    let promsie = new Promise(async (resolve, reject) => {
+      const alertMessage = await this.alertCtrl.create(<any>{
+          header: "Edytuj ligę",
+          title: 'Edytuj ligę',
+          inputs: [
+            {
+              name: 'name',
+              placeholder: 'Nazwa',
+              type: "text",
+              value: league.name
+            },
+            {
+              name: 'path',
+              placeholder: 'Adres URL',
+              type: "text",
+              value: league.path
+            }
+          ],
+          buttons: [
+            {
+              text: 'Anuluj',
+              role: 'cancel'
+            },
+            {
+              text: 'Zmień',
+              cssClass: "alert-btn",
+              handler: async data => {
+                  this.leagues[index].name = data.name;
+                  this.leagues[index].path = data.path;
+                  this.storage.set("leagues", this.leagues);
+              }
+            }
+          ]
+        });
+      await alertMessage.present();
+  });
   }
 
   async loadLeague(league: League) {
@@ -70,7 +121,9 @@ export class HomePage {
 
   async addLeague() {
       let promsie = new Promise(async (resolve, reject) => {
-        const alertMessage = await this.alertCtrl.create({
+        const alertMessage = await this.alertCtrl.create(<any>{
+            header: "Dodaj ligę",
+            title: "Dodaj ligę",
             inputs: [
               {
                 name: 'name',
@@ -79,7 +132,7 @@ export class HomePage {
               },
               {
                 name: 'path',
-                placeholder: 'Ścieżka',
+                placeholder: 'Adres URL',
                 type: "text"
               }
             ],
@@ -90,6 +143,7 @@ export class HomePage {
               },
               {
                 text: 'Dodaj',
+                cssClass: "alert-btn",
                 handler: async data => {
                     this.leagues.push(new League(data.name, data.path));
                     this.storage.set("leagues", this.leagues);
