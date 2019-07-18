@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { League } from '../../modules/league';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { LeagueService } from '../services/league.service';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +18,13 @@ export class HomePage {
   leagues: League[];
   data2: League;
 
-  constructor(public localStorage: Storage, private alertCtrl: AlertController, private router: Router, private leagueService: LeagueService, public http: HttpClient, private statusBar: StatusBar) {
+  constructor(public localStorage: Storage, 
+              private alertCtrl: AlertController, 
+              private router: Router, 
+              private leagueService: LeagueService, 
+              public http: HttpClient, 
+              private statusBar: StatusBar,
+              private loadingController: LoadingController) {
     this.statusBar.backgroundColorByHexString("#ffffff");
     this.storage = localStorage;
     this.storage.get('leagues').then((val) => {
@@ -49,13 +55,17 @@ export class HomePage {
     console.log(league, index);
   }
 
-  loadLeague(league: League) {
+  async loadLeague(league: League) {
+    const loading = await this.loadingController.create({
+      message: "Wczytywanie ..."
+    });
+    await loading.present();
     this.http.get('https://api.jaroslawlesniak.pl/league-parser/?id=' + league.path).subscribe(rawData => {
       this.leagueService.setData(rawData);
       this.leagueService.setLeague(league);
+      loading.dismiss();
       this.router.navigate(['league']);
     });
-    
   }
 
   async addLeague() {

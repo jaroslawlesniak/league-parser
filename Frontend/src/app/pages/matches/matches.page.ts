@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { League } from 'src/modules/league';
 import { LeagueService } from 'src/app/services/league.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-matches',
@@ -12,13 +13,12 @@ export class MatchesPage implements OnInit {
   private data;
   private league: League = new League("", "");
 
-  constructor(private leagueService: LeagueService) { 
+  constructor(private leagueService: LeagueService, private loadingController: LoadingController) { 
     this.data = this.leagueService.getData();
     this.league = this.leagueService.getLeague();
-    console.log(this.data);
   }
 
   ngOnInit() {
+    console.log("init");
   }
-
 }
