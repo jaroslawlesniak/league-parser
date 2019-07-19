@@ -26,7 +26,7 @@
 
         for($j = 2; $j <= 21; $j++) {
             if($teamData->item($j)->nodeValue !== "") {
-                $team["stats"][] = trim($teamData->item($j)->nodeValue);
+                $team["stats"][] = trim(str_replace("-", ":", $teamData->item($j)->nodeValue));
             } else {
                 $team["stats"][] = "0";
             }

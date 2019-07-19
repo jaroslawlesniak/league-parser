@@ -11,26 +11,60 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-      <ion-item>
-        <ion-grid>
-            <ion-row>
-                <ion-col size="6">Zespół</ion-col>
-                <ion-col size="2">M</ion-col>
-                <ion-col size="2">P</ion-col>
-                <ion-col size="2">B</ion-col>
-            </ion-row>
-        </ion-grid>
-      </ion-item>
-      <ion-item *ngFor="let team of data.table">
-        <ion-grid>
-            <ion-row>
-                <ion-col size="6"><b>{{ team.position }}.</b> {{ team.team }}</ion-col>
-                <ion-col size="2">{{ team.stats[0] }}</ion-col>
-                <ion-col size="2">{{ team.stats[1] }}</ion-col>
-                <ion-col size="2">{{ team.stats[5] }}</ion-col>
-            </ion-row>
-        </ion-grid>
-      </ion-item>
-  </ion-list>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="6">
+                <div class="team-name">
+                    <ion-list>
+                        <ion-item lines="none" color="primary">Zespół</ion-item>
+                        <ion-item lines="none" *ngFor="let team of data.table; let i = index">
+                            <div class="c{{ i%2 }}">
+                                {{ team.position }}. {{ team.team }}
+                            </div>
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </ion-col>
+            <ion-col size="6" no-wrap class="table-row">
+                <div class="team-stats">
+                    <ion-list>
+                        <ion-item lines="none" color="secondary">
+                            <ion-grid>
+                                <ion-row >
+                                    <ion-col size="4">
+                                        <div class="team-stats">
+                                            <div class="stat">M</div>
+                                            <div class="stat">Pkt.</div>
+                                            <div class="stat">W</div>
+                                            <div class="stat">R</div>
+                                            <div class="stat">P</div>
+                                            <div class="stat">B</div>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-item>
+                        <ion-item lines="none" *ngFor="let team of data.table; let i = index">
+                            <div class="c{{ i%2 }}">
+                                <ion-grid>
+                                    <ion-row >
+                                        <ion-col size="4">
+                                            <div class="team-stats">
+                                                <div class="stat">{{ team.stats[0] }}</div>
+                                                <div class="stat">{{ team.stats[1] }}</div>
+                                                <div class="stat">{{ team.stats[2] }}</div>
+                                                <div class="stat">{{ team.stats[3] }}</div>
+                                                <div class="stat">{{ team.stats[4] }}</div>
+                                                <div class="stat">{{ team.stats[5] }}</div>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </div>
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
