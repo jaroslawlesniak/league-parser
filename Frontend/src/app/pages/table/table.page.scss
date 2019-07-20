@@ -13,11 +13,17 @@ h2 {
 
 .team-stats {
     font-size: 15px;
-    width: 400px;
+    width: 380px;
+    text-align: left;
 
     .stat {
         width: 60px;
         display: inline-block;
+        text-align: center;
+
+        &:first-child {
+            margin-left: -15px;
+        }
     }
 }
 
@@ -37,4 +43,14 @@ ion-list {
 
 ion-col {
     padding: 0px;
+}
+
+.stats-wrapper {
+    text-align: center;
+    height: 100%;
+    line-height: 48px;
+}
+
+.bg-color {
+    background-color: #f6f6f6;
 }
