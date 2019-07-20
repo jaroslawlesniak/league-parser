@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { League } from '../../modules/league';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, Platform, ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { LeagueService } from '../services/league.service';
 import { HttpClient } from '@angular/common/http';
@@ -23,8 +23,7 @@ export class HomePage {
               private router: Router, 
               private leagueService: LeagueService, 
               public http: HttpClient, 
-              private statusBar: StatusBar,
-              private loadingController: LoadingController) {
+              private statusBar: StatusBar) {
     this.statusBar.backgroundColorByHexString("#ffffff");
     this.storage = localStorage;
     this.storage.get('leagues').then((val) => {

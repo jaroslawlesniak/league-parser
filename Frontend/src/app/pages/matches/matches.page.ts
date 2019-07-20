@@ -7,7 +7,7 @@ import { LeagueService } from 'src/app/services/league.service';
   templateUrl: './matches.page.html',
   styleUrls: ['./matches.page.scss'],
 })
-export class MatchesPage implements OnInit, AfterContentChecked {
+export class MatchesPage {
 
   private data;
   private league: League = new League("", "");

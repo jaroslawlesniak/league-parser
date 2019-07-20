@@ -36,7 +36,6 @@ export class LeagueService {
     this.loadingSpinner = await this.loadingCtrl.create({
       message: msg
     });
-  
     await this.loadingSpinner.present();
   }
 

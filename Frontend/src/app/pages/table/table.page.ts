@@ -7,7 +7,7 @@ import { League } from 'src/modules/league';
   templateUrl: './table.page.html',
   styleUrls: ['./table.page.scss'],
 })
-export class TablePage implements OnInit {
+export class TablePage {
 
   private data;
   private league: League = new League("", "");
@@ -16,8 +16,4 @@ export class TablePage implements OnInit {
     this.data = this.leagueService.getData();
     this.league = this.leagueService.getLeague();
   }
-
-  ngOnInit() {
-  }
-
 }
