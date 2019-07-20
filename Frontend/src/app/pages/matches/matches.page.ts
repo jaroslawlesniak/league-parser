@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { League } from 'src/modules/league';
 import { LeagueService } from 'src/app/services/league.service';
 
@@ -7,7 +7,7 @@ import { LeagueService } from 'src/app/services/league.service';
   templateUrl: './matches.page.html',
   styleUrls: ['./matches.page.scss'],
 })
-export class MatchesPage implements OnInit {
+export class MatchesPage implements OnInit, AfterContentChecked {
 
   private data;
   private league: League = new League("", "");
@@ -16,6 +16,4 @@ export class MatchesPage implements OnInit {
     this.data = this.leagueService.getData();
     this.league = this.leagueService.getLeague();
   }
-
-  async ngOnInit() { }
 }

@@ -106,15 +106,12 @@ export class HomePage {
   });
   }
 
-  async loadLeague(league: League) {
-    const loading = await this.loadingController.create({
-      message: "Wczytywanie ..."
-    });
-    await loading.present();
+  loadLeague(league: League) {
+    this.leagueService.displayLoadingSpinner();
     this.http.get('https://api.jaroslawlesniak.pl/league-parser/?id=' + league.path).subscribe(rawData => {
       this.leagueService.setData(rawData);
       this.leagueService.setLeague(league);
-      loading.dismiss();
+      this.leagueService.hideLoadingSpinner();
       this.router.navigate(['league']);
     });
   }
