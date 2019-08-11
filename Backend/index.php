@@ -21,8 +21,9 @@
 
         $team = [];
         $team["position"] = $i - 3;
-        $team["team"] = trim($teamData->item(1)->nodeValue);
+        $team["team"] = str_replace("\xc2\xa0", "", trim($teamData->item(1)->nodeValue));
         $team["stats"] = [];
+        $team["matches"] = [];
 
         for($j = 2; $j <= 21; $j++) {
             if($teamData->item($j)->nodeValue !== "") {
@@ -82,7 +83,49 @@
                 $singleMatchInfo["home"] = trim($line->item(0)->nodeValue);
                 $singleMatchInfo["guest"] = trim($line->item(2)->nodeValue);
                 $singleMatchInfo["result"] = trim($line->item(1)->nodeValue);
-                $matchDayInfo["matches"][$previousMatchIndex] = $singleMatchInfo; 
+                $matchDayInfo["matches"][$previousMatchIndex] = $singleMatchInfo;
+
+                if($singleMatchInfo["result"] !== "-") {
+                    $score = explode("-", $singleMatchInfo["result"]);
+
+                    foreach($leagueTable as &$team) {
+                        if($team["team"] === $singleMatchInfo["home"]) {
+                            $single_match = [];
+                            $single_match["opponent"] = $singleMatchInfo["guest"];
+                            $single_match["result"] = $score[0].":".$score[1];
+
+                            $type = "win";
+
+                            if($score[0] === $score[1]) {
+                                $type = "draw";
+                            }
+                            if($score[0] < $score[1]) {
+                                $type = "lost";
+                            }
+
+                            $single_match["type"] = $type;
+                            $team["matches"][] = $single_match;
+                        }
+                        if($team["team"] === $singleMatchInfo["guest"]) {
+                            $single_match = [];
+                            $single_match["opponent"] = $singleMatchInfo["home"];
+                            $single_match["result"] = $score[1].":".$score[0];
+
+                            $type = "win";
+
+                            if($score[0] === $score[1]) {
+                                $type = "draw";
+                            }
+                            if($score[0] > $score[1]) {
+                                $type = "lost";
+                            }
+
+                            $single_match["type"] = $type;
+                            $team["matches"][] = $single_match;
+                        }
+                    }
+                }
+
                 $previousMatchIndex++;
             }
         }
