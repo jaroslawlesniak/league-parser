@@ -104,7 +104,7 @@
                             }
 
                             $single_match["type"] = $type;
-                            $team["matches"][] = $single_match;
+                            array_unshift($team["matches"], $single_match);
                         }
                         if($team["team"] === $singleMatchInfo["guest"]) {
                             $single_match = [];
@@ -121,7 +121,7 @@
                             }
 
                             $single_match["type"] = $type;
-                            $team["matches"][] = $single_match;
+                            array_unshift($team["matches"], $single_match);
                         }
                     }
                 }

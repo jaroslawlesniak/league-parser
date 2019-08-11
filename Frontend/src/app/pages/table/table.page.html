@@ -58,11 +58,24 @@
                                                 <div class="stat">{{ team.stats[4] }}</div>
                                                 <div class="stat">{{ team.stats[5] }}</div>
                                                 <div class="stat form">
-                                                    <div class="match win">W</div>
+                                                    <ng-container class="match" *ngFor="let result of team.matches; let j = index">
+                                                        <ng-container *ngIf="j < 5">
+                                                            <ng-container *ngIf="result.type == 'win'">
+                                                                <div class="match win">W</div>
+                                                            </ng-container>
+                                                            <ng-container *ngIf="result.type == 'draw'">
+                                                                <div class="match draw">R</div>
+                                                            </ng-container>
+                                                            <ng-container *ngIf="result.type == 'lost'">
+                                                                <div class="match lose">P</div>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                    <!-- <div class="match win">W</div>
                                                     <div class="match draw">R</div>
                                                     <div class="match win">W</div>
                                                     <div class="match lose">P</div>
-                                                    <div class="match win">W</div>
+                                                    <div class="match win">W</div> -->
                                                 </div>
                                             </div>
                                         </ion-col>

@@ -10,9 +10,10 @@ import { League } from 'src/modules/league';
 export class TablePage {
 
   private data;
-  private league: League = new League("", "");
+  private league: League = new League('', '');
+  private matches = [];
 
-  constructor(private leagueService: LeagueService) { 
+  constructor(private leagueService: LeagueService) {
     this.data = this.leagueService.getData();
     this.league = this.leagueService.getLeague();
   }
