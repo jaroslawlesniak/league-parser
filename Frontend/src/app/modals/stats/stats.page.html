@@ -1,0 +1,57 @@
+<ion-header no-border>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/league/table" (click)="dismiss()"></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ team.team }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2>Statystyki</h2>
+  <div class="container">
+      <i>Ogólne Statystyki</i>
+      <p>Rozegrane mecze: {{ team.stats[0] }}</p>
+      <p>Punkty: {{ team.stats[1] }}</p>
+      <p>Wygrane: {{ team.stats[2] }}</p>
+      <p>Remisy: {{ team.stats[3] }}</p>
+      <p>Porażki: {{ team.stats[4] }}</p>
+      <p>Bramki: {{ team.stats[5] }}</p>
+
+      <i>Mecze domowe</i>
+      <p>Rozegrane mecze: {{ team.stats[6] + team.stats[7] + team.stats[8] }}</p>
+      <p>Punkty: {{ team.stats[6] * 3 + team.stats[7]}}</p>
+      <p>Wygrane: {{ team.stats[6] }}</p>
+      <p>Remisy: {{ team.stats[7] }}</p>
+      <p>Porażki: {{ team.stats[8] }}</p>
+      <p>Bramki: {{ team.stats[9] }}</p>
+
+      <i>Mecze wyjazdowe</i>
+      <p>Rozegrane mecze: {{ team.stats[10] + team.stats[11] + team.stats[12] }}</p>
+      <p>Punkty: {{ team.stats[10] * 3 + team.stats[11]}}</p>
+      <p>Wygrane: {{ team.stats[10] }}</p>
+      <p>Remisy: {{ team.stats[11] }}</p>
+      <p>Porażki: {{ team.stats[12] }}</p>
+      <p>Bramki: {{ team.stats[13] }}</p>
+      </div>
+      <h2>Ostatnie mecze</h2>
+      <div class="container second">
+          <ion-grid>
+              <ion-row *ngFor="let match of team.matches">
+                <ion-col class="type" size="1">
+                    <ng-container *ngIf="match.type == 'win'">
+                        <div class="match win">W</div>
+                    </ng-container>
+                    <ng-container *ngIf="match.type == 'draw'">
+                        <div class="match draw">R</div>
+                    </ng-container>
+                    <ng-container *ngIf="match.type == 'lost'">
+                        <div class="match lose">P</div>
+                    </ng-container>
+                </ion-col>
+                <ion-col size="8">{{ match.opponent }}</ion-col>
+                <ion-col size="3" class="result">{{ match.result }}</ion-col>
+              </ion-row>
+            </ion-grid>
+      </div>
+</ion-content>

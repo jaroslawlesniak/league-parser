@@ -17,7 +17,7 @@
                 <div class="team-name">
                     <ion-list>
                         <ion-item lines="none" color="primary">Zespół</ion-item>
-                        <ion-item lines="none" *ngFor="let team of data.table; let i = index">
+                        <ion-item (click)="displayStats(team)" lines="none" *ngFor="let team of data.table; let i = index">
                             <div class="c{{ i%2 }}">
                                 {{ team.position }}. {{ team.team }}
                             </div>

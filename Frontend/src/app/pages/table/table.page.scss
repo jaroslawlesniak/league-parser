@@ -29,31 +29,6 @@ h2 {
             width: 120px;
             margin-left: 20px;
             text-align: left;
-
-            .match {
-                width: 18px;
-                height: 18px;
-                display: inline-block;
-                line-height: 19.5px;
-                color: #fff;
-                margin-right: 2px;
-                text-align: center;
-                font-size: 11px;
-                position: relative;
-                top: -1px;
-
-                &.win {
-                    background-color: #28A745;
-                }
-
-                &.draw {
-                    background-color: #dbc927;
-                }  
-
-                &.lose {
-                    background-color: #f44242;
-                }
-            }
         }
     }
 }

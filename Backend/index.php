@@ -27,9 +27,9 @@
 
         for($j = 2; $j <= 21; $j++) {
             if($teamData->item($j)->nodeValue !== "") {
-                $team["stats"][] = trim(str_replace("-", ":", $teamData->item($j)->nodeValue));
+                $team["stats"][] = (int) trim(str_replace("-", ":", $teamData->item($j)->nodeValue));
             } else {
-                $team["stats"][] = "0";
+                $team["stats"][] = 0;
             }
         }
         $leagueTable[$i - 4] = $team;
@@ -109,7 +109,7 @@
                         if($team["team"] === $singleMatchInfo["guest"]) {
                             $single_match = [];
                             $single_match["opponent"] = $singleMatchInfo["home"];
-                            $single_match["result"] = $score[1].":".$score[0];
+                            $single_match["result"] = $score[0].":".$score[1];
 
                             $type = "win";
 

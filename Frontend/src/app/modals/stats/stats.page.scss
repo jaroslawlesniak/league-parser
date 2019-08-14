@@ -1,0 +1,50 @@
+.container {
+    padding: 25px 15px;
+}
+
+h2 {
+    font-size: 16px;
+    color: #fff;
+    margin: 0;
+    background-color: #cc3333;
+    padding: 15px;
+}
+
+.second {
+    margin-top: 0px;
+}
+
+p {
+    margin: 0;
+    font-size: 15px;
+    margin-top: 8px;
+    display: block;
+}
+
+i {
+    font-size: 15px;
+    color: #000;
+    display: block;
+    margin-top: 25px;
+    font: {
+        style: unset;
+        weight: bold;
+    }
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+ion-grid {
+    padding: 0;
+}
+
+.type {
+    padding-left: 0px;
+}
+
+.result {
+    text-align: right;
+    font-weight: bold;
+}
