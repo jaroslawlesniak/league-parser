@@ -62,10 +62,19 @@ ion-title {
     }
 }
 
+ion-col {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .image {
     text-align: center;
-    margin-right: 15px;
+    margin-right: 10px;
     display: inline-block;
+    width: 25px;
+    text-align: center;
+    margin-left: -2px;
 
     img {
         height: 25px;

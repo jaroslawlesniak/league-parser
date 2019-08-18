@@ -13,7 +13,7 @@
     $resultTable = $finder->query('//table[@class="main"]');
     $image = $resultTable->item(0)->getElementsByTagName("img");
 
-    if(count($image) === 7) {
+    if(strpos($image->item(0)->getAttribute("src"), "logo") !== false) {
         $url = $image->item(0)->getAttribute("src");
         echo json_encode(["image" => $url]);
     } else {
