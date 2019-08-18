@@ -3,10 +3,7 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref=""></ion-back-button>
         </ion-buttons>
-        <ion-title>
-        <h2>{{ league.name }}</h2>
-        <ion-note>{{ league.path }}</ion-note>
-        </ion-title>
+        <ion-title>{{ league.name }}</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -45,7 +42,7 @@
                                 </ion-row>
                             </ion-grid>
                         </ion-item>
-                        <ion-item class="stats-wrapper" lines="none" *ngFor="let team of data.table; let i = index">
+                        <ion-item (click)="displayStats(team)" class="stats-wrapper" lines="none" *ngFor="let team of data.table; let i = index">
                             <div class="c{{ i%2 }}">
                                 <ion-grid>
                                     <ion-row >
@@ -71,11 +68,6 @@
                                                             </ng-container>
                                                         </ng-container>
                                                     </ng-container>
-                                                    <!-- <div class="match win">W</div>
-                                                    <div class="match draw">R</div>
-                                                    <div class="match win">W</div>
-                                                    <div class="match lose">P</div>
-                                                    <div class="match win">W</div> -->
                                                 </div>
                                             </div>
                                         </ion-col>

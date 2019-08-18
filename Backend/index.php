@@ -18,16 +18,25 @@
 
     for($i = 4; $i < $rawLeagueTable->length; $i++) {
         $teamData = $rawLeagueTable->item($i)->getElementsByTagName("td");
-
+        if(count($teamData) <= 1) continue;
         $team = [];
         $team["position"] = $i - 3;
         $team["team"] = str_replace("\xc2\xa0", "", trim($teamData->item(1)->nodeValue));
         $team["stats"] = [];
         $team["matches"] = [];
+        $team["url"] = "";
+
+        $urlData = $teamData->item(1)->getElementsByTagName("a");
+        $team["url"] = $urlData->item(0)->getAttribute("href");        
 
         for($j = 2; $j <= 21; $j++) {
             if($teamData->item($j)->nodeValue !== "") {
-                $team["stats"][] = (int) trim(str_replace("-", ":", $teamData->item($j)->nodeValue));
+                $val = trim(str_replace("-", ":", $teamData->item($j)->nodeValue));
+                if(strpos($val, ":") === false) {
+                    $team["stats"][] = (int) $val;
+                } else {
+                    $team["stats"][] = $val;
+                }
             } else {
                 $team["stats"][] = 0;
             }

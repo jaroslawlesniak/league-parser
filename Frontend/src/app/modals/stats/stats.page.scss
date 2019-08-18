@@ -12,12 +12,13 @@ h2 {
 
 .second {
     margin-top: 0px;
+    padding-bottom: 10px;
 }
 
 p {
     margin: 0;
     font-size: 15px;
-    margin-top: 8px;
+    margin-top: 5px;
     display: block;
 }
 
@@ -47,4 +48,16 @@ ion-grid {
 .result {
     text-align: right;
     font-weight: bold;
+}
+
+ion-title {
+    padding: 10px;
+
+    img {
+        height: 25px;
+        margin-right: 10px;
+        position: relative;
+        top: 5px;
+        margin-top: -10px;
+    }
 }

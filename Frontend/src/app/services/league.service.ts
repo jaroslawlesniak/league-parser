@@ -7,7 +7,7 @@ import { LoadingController } from '@ionic/angular';
 })
 export class LeagueService {
 
-  private league: League = new League("", "");
+  private league: League = new League('', '');
   private data;
   private loadingSpinner;
 
@@ -32,7 +32,7 @@ export class LeagueService {
     this.data = data;
   }
 
-  async displayLoadingSpinner(msg: string = "Wczytywanie ...") {
+  async displayLoadingSpinner(msg: string = 'Wczytywanie ...') {
     this.loadingSpinner = await this.loadingCtrl.create({
       message: msg
     });

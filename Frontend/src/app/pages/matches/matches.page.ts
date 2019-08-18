@@ -10,9 +10,9 @@ import { LeagueService } from 'src/app/services/league.service';
 export class MatchesPage {
 
   private data;
-  private league: League = new League("", "");
+  private league: League = new League('', '');
 
-  constructor(private leagueService: LeagueService) { 
+  constructor(private leagueService: LeagueService) {
     this.data = this.leagueService.getData();
     this.league = this.leagueService.getLeague();
   }

@@ -18,13 +18,13 @@ export class HomePage {
   leagues: League[];
   data2: League;
 
-  constructor(public localStorage: Storage, 
-              private alertCtrl: AlertController, 
-              private router: Router, 
-              private leagueService: LeagueService, 
-              public http: HttpClient, 
+  constructor(public localStorage: Storage,
+              private alertCtrl: AlertController,
+              private router: Router,
+              private leagueService: LeagueService,
+              public http: HttpClient,
               private statusBar: StatusBar) {
-    this.statusBar.backgroundColorByHexString("#ffffff");
+    this.statusBar.backgroundColorByHexString('#ffffff');
     this.storage = localStorage;
     this.storage.get('leagues').then((val) => {
         if(val !== null) {
@@ -37,15 +37,15 @@ export class HomePage {
 
   async delete(league: League) {
     const alert = await this.alertCtrl.create({
-      header: "Potwierdzenie",
-      message: "Czy napewno chcesz usunać ligę <b>" + league.name + "</b>?",
+      header: 'Potwierdzenie',
+      message: 'Czy napewno chcesz usunać ligę <b>' + league.name + '</b>?',
       buttons: [
         {
           text: 'Anuluj',
           role: 'cancel'
         }, {
           text: 'Usuń',
-          cssClass: "alert-btn",
+          cssClass: 'alert-btn',
           handler: () => {
             let index = -1;
 
@@ -58,7 +58,7 @@ export class HomePage {
             }
 
             this.leagues.splice(index, 1);
-            this.storage.set("leagues", this.leagues);
+            this.storage.set('leagues', this.leagues);
           }
         }
       ]
@@ -69,7 +69,7 @@ export class HomePage {
   modyfy(league: League, index) {
     let promsie = new Promise(async (resolve, reject) => {
       const alertMessage = await this.alertCtrl.create(<any>{
-          header: "Edytuj ligę",
+          header: 'Edytuj ligę',
           title: 'Edytuj ligę',
           inputs: [
             {
