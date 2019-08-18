@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { LeagueService } from '../services/league.service';
 import { HttpClient } from '@angular/common/http';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomePage {
               private router: Router,
               private leagueService: LeagueService,
               public http: HttpClient,
-              private statusBar: StatusBar) {
+              private statusBar: StatusBar,
+              private notifiation: LocalNotifications) {
     this.statusBar.backgroundColorByHexString('#ffffff');
     this.storage = localStorage;
     this.storage.get('leagues').then((val) => {
@@ -143,19 +145,47 @@ export class HomePage {
                 handler: async data => {
                     this.leagues.push(new League(data.name, data.path));
                     this.storage.set("leagues", this.leagues);
-                    this.http.get('https://api.jaroslawlesniak.pl/league-parser/?id=' + data.path).subscribe((teams:any) => {
-                      for(let team of teams.table) {
-                        this.http.get('https://api.jaroslawlesniak.pl/league-parser/load-icon.php?url=' + team.url).subscribe((icon:any) => {
-                          this.storage.set(team.team, icon.image);
-                          console.log(team.team, icon.image);
-                        });
-                      }
-                  });
+                    this.loadLeagueLogos(data.path);
                 }
               }
             ]
           });
         await alertMessage.present();
+    });
+  }
+
+  loadLeagueLogos(url: String) {
+    this.notifiation.schedule({
+      id: 1,
+      text: 'Wczytywanie zdjęć ...',
+      progressBar: true,
+      sticky: true,
+      sound: null,
+      vibrate: false
+    });
+    this.http.get('https://api.jaroslawlesniak.pl/league-parser/?id=' + url).subscribe((teams:any) => {
+      if(teams.table.length > 0) {
+        this.getSingleLogo(teams.table, 0);
+      } 
+    });
+  }
+
+  getSingleLogo(table, i) {
+    let team = table[i];
+    this.notifiation.update({
+      id: 1,
+      sticky: true,
+      progressBar: { value: ((i + 1)/table.length) * 100},
+      sound: null,
+      vibrate: false
+    });
+      this.http.get('https://api.jaroslawlesniak.pl/league-parser/load-icon.php?url=' + team.url).subscribe((icon:any) => {
+        this.storage.set(team.team, icon.image);
+        if(i + 1 < table.length) {
+          this.getSingleLogo(table, i + 1);
+        } else {
+          this.notifiation.cancel(1);
+        }
     });
   }
 }

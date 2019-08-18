@@ -12,7 +12,8 @@ import { LeagueService } from './services/league.service';
 import { StatsPage } from './modals/stats/stats.page';
 import { HttpClientModule } from '@angular/common/http';
 
-import { IonicStorageModule } from '@ionic/storage'
+import { IonicStorageModule } from '@ionic/storage';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @NgModule({
   declarations: [AppComponent, StatsPage],
@@ -22,7 +23,8 @@ import { IonicStorageModule } from '@ionic/storage'
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    LeagueService
+    LeagueService,
+    LocalNotifications
   ],
   bootstrap: [AppComponent],
   exports: [StatsPage]
