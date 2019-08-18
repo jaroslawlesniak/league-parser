@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { League } from '../../modules/league';
-import { AlertController, LoadingController, Platform, ActionSheetController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { LeagueService } from '../services/league.service';
 import { HttpClient } from '@angular/common/http';
@@ -143,6 +143,14 @@ export class HomePage {
                 handler: async data => {
                     this.leagues.push(new League(data.name, data.path));
                     this.storage.set("leagues", this.leagues);
+                    this.http.get('https://api.jaroslawlesniak.pl/league-parser/?id=' + data.path).subscribe((teams:any) => {
+                      for(let team of teams.table) {
+                        this.http.get('https://api.jaroslawlesniak.pl/league-parser/load-icon.php?url=' + team.url).subscribe((icon:any) => {
+                          this.storage.set(team.team, icon.image);
+                          console.log(team.team, icon.image);
+                        });
+                      }
+                  });
                 }
               }
             ]

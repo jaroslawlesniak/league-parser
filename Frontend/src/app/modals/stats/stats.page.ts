@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-stats',
@@ -9,14 +9,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class StatsPage {
   private team;
-  private url;
+  private url = "";
+  private cachedLogos = [];
+  
 
-  constructor(private navParams: NavParams, private modalController: ModalController, private http: HttpClient) {
+  constructor(private navParams: NavParams, private modalController: ModalController, public localStorage: Storage) {
     this.team = navParams.get('team');
-    this.http.get('https://api.jaroslawlesniak.pl/league-parser/load-icon.php?url=' + this.team.url).subscribe(data => {
-      this.url = data.image;
-      console.log(data);
+    this.localStorage.get(this.team.team).then(val => {
+      this.url = val;
     });
+    for(let team of this.team.matches) {
+      this.localStorage.get(team.opponent).then(val => {
+        this.cachedLogos[team.opponent] = val;
+      })
+    }
   }
 
   dismiss() {

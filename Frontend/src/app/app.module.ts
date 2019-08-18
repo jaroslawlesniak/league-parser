@@ -12,10 +12,12 @@ import { LeagueService } from './services/league.service';
 import { StatsPage } from './modals/stats/stats.page';
 import { HttpClientModule } from '@angular/common/http';
 
+import { IonicStorageModule } from '@ionic/storage'
+
 @NgModule({
   declarations: [AppComponent, StatsPage],
   entryComponents: [StatsPage],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
