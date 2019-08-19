@@ -17,5 +17,5 @@
         $url = $image->item(0)->getAttribute("src");
         echo json_encode(["image" => $url]);
     } else {
-        echo json_encode(["image" => null]);
+        echo json_encode(["image" => 'http://img.90minut.pl/logo/dobazy/empty.gif']);
     }

@@ -157,11 +157,9 @@ export class HomePage {
   loadLeagueLogos(url: String) {
     this.notifiation.schedule({
       id: 1,
-      text: 'Wczytywanie zdjęć ...',
-      progressBar: true,
+      title: 'Konfiguracja ligi',
+      text: "Wczytywanie zdjęć drużyn ...",
       sticky: true,
-      sound: null,
-      vibrate: false
     });
     this.http.get('https://api.jaroslawlesniak.pl/league-parser/?id=' + url).subscribe((teams:any) => {
       if(teams.table.length > 0) {
@@ -172,13 +170,6 @@ export class HomePage {
 
   getSingleLogo(table, i) {
     let team = table[i];
-    this.notifiation.update({
-      id: 1,
-      sticky: true,
-      progressBar: { value: ((i + 1)/table.length) * 100},
-      sound: null,
-      vibrate: false
-    });
       this.http.get('https://api.jaroslawlesniak.pl/league-parser/load-icon.php?url=' + team.url).subscribe((icon:any) => {
         this.storage.set(team.team, icon.image);
         if(i + 1 < table.length) {
