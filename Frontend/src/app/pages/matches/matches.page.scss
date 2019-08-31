@@ -62,3 +62,8 @@ ion-card-title, ion-card-subtitle {
 .info {
     color: #666;
 }
+
+ion-infinite-scroll-content {
+    height: 0 !important;
+    min-height: 1px;
+}

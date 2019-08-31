@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-card *ngFor="let matchDay of data.match_days">
+    <ion-card *ngFor="let matchDay of matches">
         <ion-card-header>
             <ion-card-title>{{ matchDay.date }}</ion-card-title>
             <ion-card-subtitle *ngIf="matchDay.pause !== null">{{ matchDay.pause }}</ion-card-subtitle>
@@ -36,4 +36,11 @@
             </ion-list>
         </ion-card-content>
     </ion-card>
+
+    <ion-infinite-scroll threshold="250px" (ionInfinite)="loadNextMatches($event)">
+        <ion-infinite-scroll-content
+            loadingSpinner="circles"
+            loadingText="Wczytywanie danych">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
