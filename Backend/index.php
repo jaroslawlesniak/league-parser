@@ -92,6 +92,20 @@
                 $singleMatchInfo["home"] = trim($line->item(0)->nodeValue);
                 $singleMatchInfo["guest"] = trim($line->item(2)->nodeValue);
                 $singleMatchInfo["result"] = trim($line->item(1)->nodeValue);
+
+                $info = trim($line->item(3)->nodeValue);
+
+                $singleMatchInfo["date"] = substr($info, 0, strpos($info, ','));
+
+                if(strpos($info, '(') !== false) {
+                    $singleMatchInfo["hour"] = substr($info, strpos($info, ',') + 2, 5);
+                    $viewers = (int)str_replace(" ", "", substr($info, strpos($info, '(') + 1, -1));
+                    $singleMatchInfo["viewers"] = number_format($viewers, 0, ".", " ");
+                } else {
+                    $singleMatchInfo["hour"] = substr($info, strpos($info, ',') + 2);
+                    $singleMatchInfo["viewers"] = null;
+                }
+
                 $matchDayInfo["matches"][$previousMatchIndex] = $singleMatchInfo;
 
                 $previousMatchIndex++;
