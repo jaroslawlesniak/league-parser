@@ -94,53 +94,65 @@
                 $singleMatchInfo["result"] = trim($line->item(1)->nodeValue);
                 $matchDayInfo["matches"][$previousMatchIndex] = $singleMatchInfo;
 
-                if($singleMatchInfo["result"] !== "-") {
-                    $score = explode("-", $singleMatchInfo["result"]);
-
-                    foreach($leagueTable as &$team) {
-                        if($team["team"] === $singleMatchInfo["home"]) {
-                            $single_match = [];
-                            $single_match["opponent"] = $singleMatchInfo["guest"];
-                            $single_match["result"] = $score[0].":".$score[1];
-
-                            $type = "win";
-
-                            if($score[0] === $score[1]) {
-                                $type = "draw";
-                            }
-                            if($score[0] < $score[1]) {
-                                $type = "lost";
-                            }
-
-                            $single_match["type"] = $type;
-                            array_unshift($team["matches"], $single_match);
-                        }
-                        if($team["team"] === $singleMatchInfo["guest"]) {
-                            $single_match = [];
-                            $single_match["opponent"] = $singleMatchInfo["home"];
-                            $single_match["result"] = $score[0].":".$score[1];
-
-                            $type = "win";
-
-                            if($score[0] === $score[1]) {
-                                $type = "draw";
-                            }
-                            if($score[0] > $score[1]) {
-                                $type = "lost";
-                            }
-
-                            $single_match["type"] = $type;
-                            array_unshift($team["matches"], $single_match);
-                        }
-                    }
-                }
-
                 $previousMatchIndex++;
             }
         }
 
         if(sizeof($matchDayInfo["matches"]) > 0) {
             $matches[ceil($i/2)] = $matchDayInfo;
+        }
+    }
+
+    foreach($matches as $matches_info) {
+        foreach($matches_info["matches"] as $match) {
+            if($match["result"] !== "-") {
+                $score = explode("-", $match["result"]);
+
+                foreach($leagueTable as &$team) {
+                    if($team["team"] === $match["home"]) {
+                        $single_match = [];
+                        $single_match["opponent"] = $match["guest"];
+                        $single_match["result"] = $score[0].":".$score[1];
+
+                        if($match["walkover"] === true) {
+                            $single_match["result"] .= "*";
+                        }
+
+                        $type = "win";
+
+                        if($score[0] === $score[1]) {
+                            $type = "draw";
+                        }
+                        if($score[0] < $score[1]) {
+                            $type = "lost";
+                        }
+
+                        $single_match["type"] = $type;
+                        array_unshift($team["matches"], $single_match);
+                    }
+                    if($team["team"] === $match["guest"]) {
+                        $single_match = [];
+                        $single_match["opponent"] = $match["home"];
+                        $single_match["result"] = $score[0].":".$score[1];
+
+                        if($match["walkover"] === true) {
+                            $single_match["result"] .= "*";
+                        }
+
+                        $type = "win";
+
+                        if($score[0] === $score[1]) {
+                            $type = "draw";
+                        }
+                        if($score[0] > $score[1]) {
+                            $type = "lost";
+                        }
+
+                        $single_match["type"] = $type;
+                        array_unshift($team["matches"], $single_match);
+                    }
+                }
+            }
         }
     }
 
