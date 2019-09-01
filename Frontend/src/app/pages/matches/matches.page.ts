@@ -12,7 +12,7 @@ export class MatchesPage {
   private data;
   private league: League = new League('', '');
   private matches = [];
-  private index = 0;
+  private index = 2;
 
   constructor(private leagueService: LeagueService) {
     this.data = this.leagueService.getData();

@@ -68,18 +68,12 @@ ion-infinite-scroll-content {
     min-height: 1px;
 }
 
-.match_info {
-    padding: 10px 5px;
-    border-bottom: 1px dashed #999;
-    margin-bottom: 5px;
-}
-
 .icon {
     margin-left: 10px;
     margin-right: 2px;
     position: relative;
     top: 2px;
-    color: #999;
+    color: #666;
 
     &:first-of-type {
         margin-left: 0px;
