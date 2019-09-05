@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { Component, HostListener } from '@angular/core';
+import { NavParams, ModalController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -13,7 +13,7 @@ export class StatsPage {
   private cachedLogos = [];
   
 
-  constructor(private navParams: NavParams, private modalController: ModalController, public localStorage: Storage) {
+  constructor(private navParams: NavParams, private modalController: ModalController, public localStorage: Storage, private toast: ToastController) {
     this.team = navParams.get('team');
     this.localStorage.get(this.team.team).then(val => {
       this.url = val;
